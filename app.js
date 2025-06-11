@@ -40,14 +40,13 @@ const loadingDiv = document.getElementById('loading');
     // Buscar libros usando la API de OpenLibrary
     async function buscarLibro() {
       const titulo = document.getElementById('searchInput').value.trim();
-      if (!titulo) return alert(textos[idioma].ingresaTitulo); // Validación
+      if (!titulo) return alert(textos[idioma].ingresaTitulo);
 
-      resultDiv.innerHTML = ''; // Limpiar resultados previos
+      resultDiv.innerHTML = '';
       detalleDiv.innerHTML = '';
-      setLoading(true); // Mostrar "cargando..."
+      setLoading(true);
 
       try {
-        // Fetch a OpenLibrary
         const res = await fetch(`https://openlibrary.org/search.json?title=${encodeURIComponent(titulo)}`);
         const data = await res.json();
 
@@ -56,39 +55,57 @@ const loadingDiv = document.getElementById('loading');
           return;
         }
 
-        // Mostrar resultados de libros
         resultDiv.innerHTML = '<h3>Resultados de Libros:</h3>';
-        data.docs.slice(0, 5).forEach((libro) => {
+        data.docs.slice(0, 5).forEach((libro, idx) => {
+          // Cada resultado tiene un div para la descripción con id único
           resultDiv.innerHTML += `
             <div class="item">
               <strong>${libro.title}</strong> (${libro.first_publish_year || '–'})<br>
               Autor(es): ${libro.author_name?.join(', ') || '–'}<br>
-              <button onclick="verDetalleLibro('${libro.title.replace(/'/g, "\\'")}')">${textos[idioma].verDescripcion}</button>
+              <button onclick="verDetalleLibro('${libro.key}', 'desc${idx}', this)">${textos[idioma].verDescripcion}</button>
+              <div id="desc${idx}" class="descripcion-libro"></div>
             </div><hr>`;
         });
       } catch {
         resultDiv.innerHTML = `<p>${textos[idioma].errorConsulta}</p>`;
       } finally {
-        setLoading(false); // Ocultar "cargando..."
+        setLoading(false);
       }
     }
 
-    // Ver detalles de un libro específico
-    async function verDetalleLibro(titulo) {
-      detalleDiv.innerHTML = '';
-      setLoading(true);
+    // Mostrar la descripción debajo del título correspondiente
+    async function verDetalleLibro(key, descId, btn) {
+      const descDiv = document.getElementById(descId);
+      if (!descDiv) return;
+
+      // Si ya hay descripción visible, la ocultamos y restauramos el botón
+      if (descDiv.dataset.visible === "true") {
+        descDiv.innerHTML = "";
+        descDiv.dataset.visible = "false";
+        btn.textContent = textos[idioma].verDescripcion;
+        return;
+      }
+
+      descDiv.innerHTML = 'Cargando descripción...';
 
       try {
-        const res = await fetch(`https://openlibrary.org/search.json?title=${encodeURIComponent(titulo)}`);
-        const libro = (await res.json()).docs[0];
-        const descripcion = libro.first_sentence?.join(' ') || 'No hay descripción disponible.';
-        detalleDiv.innerHTML = `
-          <h3>${textos[idioma].descripcion} "${libro.title}"</h3>
-          <p>${descripcion}</p>`;
+        const res = await fetch(`https://openlibrary.org${key}.json`);
+        const data = await res.json();
+
+        let descripcion = 'No hay descripción disponible.';
+        if (typeof data.description === 'string') {
+          descripcion = data.description;
+        } else if (typeof data.description === 'object' && data.description.value) {
+          descripcion = data.description.value;
+        }
+
+        descDiv.innerHTML = `<p>${descripcion}</p>`;
+        descDiv.dataset.visible = "true";
+        btn.textContent = "Cerrar descripción";
       } catch {
-        detalleDiv.innerHTML = `<p>${textos[idioma].errorConsulta}</p>`;
-      } finally {
-        setLoading(false);
+        descDiv.innerHTML = `<p>Error al obtener la descripción.</p>`;
+        descDiv.dataset.visible = "true";
+        btn.textContent = "Cerrar descripción";
       }
     }
 
