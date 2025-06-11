@@ -1,0 +1,86 @@
+/* ======== ESTILOS GENERALES DEL BODY ======== */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+  background-color: #f1db6d; 
+}
+
+/* ======== CONTENEDOR PRINCIPAL ======== */
+.container {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* ======== TÍTULO Y CAMPOS DE ENTRADA ======== */
+
+h1 {
+  text-align: center;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.Input {
+  width: 95%;
+}
+
+/* ======== BOTONES ======== */
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* ======== RESULTADOS Y DETALLES ======== */
+#result {
+  margin-top: 20px;
+}
+
+#detalle {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f0f0f0;
+  border-radius: 8px;
+}
+
+/* ======== UTILIDADES ======== */
+/*
+- Oculta elementos cuando se aplica la clase .hidden.
+- Espaciado entre ítems de resultados.
+*/
+.hidden {
+  display: none;
+}
+
+.item {
+  margin-bottom: 10px;
+}
+
+/* ======== GATO DECORATIVO ======== */
+.gato-fondo {
+  position: fixed;
+  left: 142px; /* Ajusta este valor según lo cerca que lo quieras */
+  bottom: 0;
+  z-index: 10;
+  display: block;
+  width: 350px; /* Ajusta el tamaño si lo necesitas */
+  pointer-events: none;
+}
