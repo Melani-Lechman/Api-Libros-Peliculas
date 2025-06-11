@@ -7,10 +7,11 @@
   <link rel="icon" href="gato.png" type="image/png">
 </head>
 <body>
-    <!-- Google Traductor -->
-    <div id="google_translate_element" style="text-align: right; margin-bottom: 15px;"></div>
 
-    <!-- Busqueda -->
+  <!-- Google Traductor centrado arriba -->
+  <div id="google_translate_element" style="text-align: center; margin: 20px auto;"></div>
+
+  <!-- Busqueda -->
   <div class="container">
     <h1 id="titulo"></h1>
     <input type="text" class="Input" id="searchInput" placeholder="">
@@ -23,21 +24,18 @@
     <div id="detalle"></div>
   </div>
 
-  <!-- Google Traductor -->
-    <script type="text/javascript">
-  function googleTranslateElementInit() {
-    new google.translate.TranslateElement({
-      pageLanguage: 'en',
-      includedLanguages: 'es,en',
-      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-    }, 'google_translate_element');
-  }
-</script>
-<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'es,en',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+  </script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
   <script src="app.js"></script>
-
   <img src="gif.gif" alt="Gato" class="gato-fondo">
 
 </body>

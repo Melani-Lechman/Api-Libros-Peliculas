@@ -1,10 +1,13 @@
 /* ======== ESTILOS GENERALES DEL BODY ======== */
 body {
   font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
   display: flex;
-  justify-content: center;
-  padding: 30px;
+  flex-direction: column;
+  align-items: center;
   background-color: #f1db6d; 
+  min-height: 100vh;
 }
 
 /* ======== CONTENEDOR PRINCIPAL ======== */
@@ -23,17 +26,26 @@ h1 {
   text-align: center;
 }
 
-input {
+input,
+.Input {
   width: 100%;
   padding: 12px;
   margin: 10px 0;
   font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  border-radius: 10px;
+  border: none;
+  background: #eef2fa;
+  color: #222;
+  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(60, 60, 60, 0.08);
+  outline: none;
+  transition: background 0.2s, box-shadow 0.2s;
 }
 
-.Input {
-  width: 95%;
+input:focus,
+.Input:focus {
+  background: #e8e1e1;
+  box-shadow: 0 4px 16px rgba(60, 60, 60, 0.13);
 }
 
 /* ======== BOTONES ======== */
@@ -44,9 +56,24 @@ input {
 }
 
 button {
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 12px 28px;
+  font-size: 17px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  background: #e8e1e1;
+  color: #333;
+  box-shadow: 0 2px 8px rgba(60, 60, 60, 0.08);
   cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.15s;
+  outline: none;
+}
+
+button:hover, button:focus {
+  background: #e0e0e0;
+  color: #222;
+  box-shadow: 0 4px 16px rgba(60, 60, 60, 0.13);
+  transform: translateY(-2px) scale(1.03);
 }
 
 /* ======== RESULTADOS Y DETALLES ======== */
@@ -77,10 +104,75 @@ button {
 /* ======== GATO DECORATIVO ======== */
 .gato-fondo {
   position: fixed;
-  left: 142px; /* Ajusta este valor según lo cerca que lo quieras */
+  left: 90px; /* Ajusta este valor según lo cerca que lo quieras */
   bottom: 0;
-  z-index: 10;
+  z-index: -1;
   display: block;
   width: 350px; /* Ajusta el tamaño si lo necesitas */
   pointer-events: none;
 }
+/*======= TrADUCTOR ========*/
+.google_translate_element {
+  width: 100vw;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+    /* ======== RESPONSIVE ======== */
+@media (max-width: 700px) {
+  .container {
+    max-width: 98vw;
+    padding: 10px;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .gato-fondo {
+    width: 180px;
+    left: 10px;
+    z-index: -1;
+  }
+
+  h1 {
+    font-size: 1.3em;
+  }
+
+  input, .Input {
+    font-size: 15px;
+    padding: 10px;
+    width: 100%;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  button {
+    width: 100%;
+    font-size: 15px;
+    padding: 10px 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .gato-fondo {
+    width: 110px;
+    left: 2px;
+    z-index: -1;
+  }
+  .container {
+    padding: 4px;
+  }
+  input,
+  .Input {
+    width: 100% !important;
+    min-width: 0;
+    box-sizing: border-box;
+    text-align: left;
+    margin: 8px 0;
+    font-size: 15px;
+  }
+}
+
